@@ -1,0 +1,6 @@
+<Project>
+    <PropertyGroup>
+         <LLVMInstallDir>D:\Data\Code\windows\obfuscator\BronyaObfus\install</LLVMInstallDir>
+         <LLVMToolsVersion>16.0.5</LLVMToolsVersion>
+    </PropertyGroup>
+</Project>
