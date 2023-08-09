@@ -19,3 +19,6 @@ PPEB GetPEB();
 pFnNtQueryInformationProcess GetNtQueryInformationProcess();
 pFnNtSetInformationThread GetNtSetInformationThread();
 pFnNtQueryInformationThread GetNtQueryInformationThread();
+
+BOOL IsFileExists(TCHAR* szPath);
+BOOL IsDirExists(TCHAR* szPath);

@@ -177,7 +177,7 @@
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <MASM Include="int2d.asm">
+    <MASM Include="gadgets.asm">
       <FileType>Document</FileType>
     </MASM>
   </ItemGroup>

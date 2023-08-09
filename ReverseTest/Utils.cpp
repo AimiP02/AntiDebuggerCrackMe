@@ -39,3 +39,13 @@ pFnNtQueryInformationThread GetNtQueryInformationThread() {
 	
 	return GetFunc<pFnNtQueryInformationThread>(hNtdll, "NtQueryInformationThread");
 }
+
+BOOL IsFileExists(TCHAR* szPath) {
+	DWORD dwAttr = GetFileAttributes(szPath);
+	return (dwAttr != INVALID_FILE_ATTRIBUTES && !(dwAttr & FILE_ATTRIBUTE_DIRECTORY));
+}
+
+BOOL IsDirExists(TCHAR* szPath) {
+	DWORD dwAttr = GetFileAttributes(szPath);
+	return (dwAttr != INVALID_FILE_ATTRIBUTES && (dwAttr & FILE_ATTRIBUTE_DIRECTORY));
+}
