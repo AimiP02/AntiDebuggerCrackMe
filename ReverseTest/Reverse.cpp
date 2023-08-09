@@ -1,6 +1,6 @@
 #include "pch.h"
 
-#include "Reverse.h"
+#include "Crypto.h"
 #include "base64.h"
 #include "AntiDebugger.h"
 #include "AntiVM.h"
@@ -8,10 +8,9 @@
 #include <process.h>
 
 void check(char* Cipher) {
-    auto base64_cipher = base64::to_base64(Cipher);
-    auto your_flag = base64::to_base64(base64_cipher);
+    auto base64_cipher = base64::to_base64(std::string(Cipher));
 
-    if (!strcmp(your_flag.c_str(), "R0hOeUpmVE52dXR5SUpjMUhRPT0=")) {
+    if (!strcmp(base64_cipher.c_str(), "GHNyJfTNvutyIJc1HQ==")) {
         std::cout << "Done.\n";
     }
     else {
@@ -35,11 +34,24 @@ void CatchMe() {
 
 unsigned int __stdcall AntiDebugger(PVOID pM) {
     while (true) {
-        if (IsDebuggerPresentPEB() == DetectResult::HasDebugger) {
-            //MessageBoxA(NULL, "AntiDebug", "AntiDebug", MB_OK);
-            printf("No Debugger!\n");
+        DetectResult Res = IsDebuggerPresentVEH2D();
+        switch (Res) {
+        case DetectResult::HasDebugger: {
+            MessageBoxA(NULL, "Hello Hacker;)", "Hello", NULL);
             ExitProcess(0);
-            return 0;
+            break;
+        }
+        case DetectResult::HasVM:
+            break;
+        case DetectResult::Unknown: {
+            printf("Unknown error!\n");
+            break;
+        }
+        case DetectResult::NoDebugger:
+        case DetectResult::NoVM:
+            break;
+        default:
+            break;
         }
     }
 

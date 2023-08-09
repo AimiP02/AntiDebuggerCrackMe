@@ -16,7 +16,7 @@ public:
 	}
 	~Crypto() = default;
 
-	char* Encrypt(const char* data, int len);
+	char* Encrypt(const char* data, size_t len);
 
 public:
 	const char* Key;

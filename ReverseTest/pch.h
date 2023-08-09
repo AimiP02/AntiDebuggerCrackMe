@@ -31,8 +31,7 @@
 #include <algorithm>
 #include <cctype>
 #include <slpublic.h> // SLIsGenuineLocal
-
-#define ENV64BIT
+#include <intrin.h>
 
 enum class DetectResult : int16_t {
 	HasDebugger,
