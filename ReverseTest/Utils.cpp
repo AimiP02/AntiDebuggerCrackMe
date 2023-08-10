@@ -40,12 +40,31 @@ pFnNtQueryInformationThread GetNtQueryInformationThread() {
 	return GetFunc<pFnNtQueryInformationThread>(hNtdll, "NtQueryInformationThread");
 }
 
-BOOL IsFileExists(TCHAR* szPath) {
+BOOL IsFileExists(const TCHAR* szPath) {
 	DWORD dwAttr = GetFileAttributes(szPath);
 	return (dwAttr != INVALID_FILE_ATTRIBUTES && !(dwAttr & FILE_ATTRIBUTE_DIRECTORY));
 }
 
-BOOL IsDirExists(TCHAR* szPath) {
+BOOL IsDirExists(const TCHAR* szPath) {
 	DWORD dwAttr = GetFileAttributes(szPath);
 	return (dwAttr != INVALID_FILE_ATTRIBUTES && (dwAttr & FILE_ATTRIBUTE_DIRECTORY));
+}
+
+BOOL IsProcessExists(const TCHAR* szProcessName) {
+	PROCESSENTRY32 ProcEntry;
+
+	ProcEntry.dwSize = sizeof(PROCESSENTRY32);
+
+	HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+	if (hSnapshot == INVALID_HANDLE_VALUE) {
+		return FALSE;
+	}
+
+	do {
+		if (_tcsicmp(ProcEntry.szExeFile, szProcessName) == 0) {
+			CloseHandle(hSnapshot);
+			return TRUE;
+		}
+	} while (Process32Next(hSnapshot, &ProcEntry));
+	return 0;
 }

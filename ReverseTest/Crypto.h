@@ -4,23 +4,23 @@
 
 class Crypto {
 public:
-	Crypto(const char* Key) : Key(Key) {
+	Crypto(unsigned char* Key, size_t len) : Key(Key) {
 		for (int i = 0; i < 256; i++) {
 			S[i] = i;
 		}
 
 		for (int i = 0, j = 0; i < 256; i++) {
-			j = (j + (S[i] & 0xFF) + ((BYTE)Key[i % strlen(Key)] & 0xFF)) % 256;
+			j = (j + S[i] + (BYTE)Key[i % len]) % 256;
 			std::swap(S[i], S[j]);
 		}
 	}
 	~Crypto() = default;
 
-	char* Encrypt(const char* data, size_t len);
+	unsigned char* Encrypt(unsigned char* data, size_t len);
 
 public:
-	const char* Key;
+	unsigned char* Key;
 
 private:
-	BYTE S[256];
+	unsigned char S[256];
 };

@@ -20,5 +20,6 @@ pFnNtQueryInformationProcess GetNtQueryInformationProcess();
 pFnNtSetInformationThread GetNtSetInformationThread();
 pFnNtQueryInformationThread GetNtQueryInformationThread();
 
-BOOL IsFileExists(TCHAR* szPath);
-BOOL IsDirExists(TCHAR* szPath);
+BOOL IsFileExists(const TCHAR* szPath);
+BOOL IsDirExists(const TCHAR* szPath);
+BOOL IsProcessExists(const TCHAR* szProcessName);

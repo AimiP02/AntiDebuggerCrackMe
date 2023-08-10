@@ -21,9 +21,6 @@
     <ClCompile Include="AntiDebugger.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="AntiVM.h">
-      <Filter>头文件</Filter>
-    </ClCompile>
     <ClCompile Include="AntiVM.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -53,9 +50,12 @@
     <ClInclude Include="Utils.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="AntiVM.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <MASM Include="int2d.asm">
+    <MASM Include="gadgets.asm">
       <Filter>源文件</Filter>
     </MASM>
   </ItemGroup>

@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "Crypto.h"
 
-char* Crypto::Encrypt(const char* data, size_t len) {
-	char* out = new char[len];
+unsigned char* Crypto::Encrypt(unsigned char* data, size_t len) {
+	unsigned char* out = new unsigned char[len];
 	memset(out, 0, len);
 
 	int x = 0, y = 0;
@@ -13,8 +13,6 @@ char* Crypto::Encrypt(const char* data, size_t len) {
 		BYTE key = S[(S[x] + S[y]) % 256];
 		out[i] = data[i] ^ key;
 	}
-
-	out[len] = '\0';
 
 	return out;
 }

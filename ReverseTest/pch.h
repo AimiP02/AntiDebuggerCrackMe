@@ -33,6 +33,18 @@
 #include <slpublic.h> // SLIsGenuineLocal
 #include <intrin.h>
 
+#pragma comment(lib, "wbemuuid.lib")
+#pragma comment(lib, "Shlwapi.lib")
+#pragma comment(lib, "Mpr.lib")
+#pragma comment(lib, "Iphlpapi.lib")
+#pragma comment(lib, "Shlwapi.lib")
+#pragma comment(lib, "Psapi.lib")
+#pragma comment(lib, "wbemuuid.lib")
+#pragma comment(lib, "Winmm.lib")
+#pragma comment(lib, "setupapi.lib")
+#pragma comment(lib, "powrprof.lib")
+#pragma comment(lib, "Slwga.lib")
+
 enum class DetectResult : int16_t {
 	HasDebugger,
 	HasVM,
