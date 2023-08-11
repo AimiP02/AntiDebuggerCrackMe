@@ -85,7 +85,7 @@ DetectResult IsDebuggerPresentProcessBasicInformation() {
 	return DetectResult::NoDebugger;
 }
 
-DetectResult IsDebuggerPresentProcessDebugObjectHandle() {
+DetectResult IsDebuggerPresentProcessDebugFlags() {
 	pFnNtQueryInformationProcess pNtQueryInformationProcess = GetNtQueryInformationProcess();
 	if (pNtQueryInformationProcess == nullptr) {
 		return DetectResult::Unknown;
@@ -98,7 +98,7 @@ DetectResult IsDebuggerPresentProcessDebugObjectHandle() {
 	return (status == 0 && IsDebuggerPresent) ? DetectResult::HasDebugger : DetectResult::NoDebugger;
 }
 
-DetectResult IsDebuggerPresentProcessDebugFlags() {
+DetectResult IsDebuggerPresentProcessDebugObjectHandle() {
 	pFnNtQueryInformationProcess pNtQueryInformationProcess = GetNtQueryInformationProcess();
 	if (pNtQueryInformationProcess == nullptr) {
 		return DetectResult::Unknown;
