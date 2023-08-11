@@ -15,8 +15,6 @@ DetectResult IsDebuggerPresentProcessBasicInformation();
 DetectResult IsDebuggerPresentProcessDebugObjectHandle();
 DetectResult IsDebuggerPresentProcessDebugFlags();
 
-DetectResult IsDebuggerPresentHideFromDebugger();
-
 DetectResult IsDebuggerPresentVEH3();
 DetectResult IsDebuggerPresentVEH2D();
 DetectResult IsDebuggerPresentOutputDebugString();
@@ -24,3 +22,5 @@ DetectResult IsDebuggerPresentOutputDebugString();
 DetectResult IsDebuggerPresentHardwareDebugRegisters();
 
 DetectResult IsDebuggerPresentSoftwareBreakpoints(PBYTE Addr);
+
+void IsDebuggerPresentHideFromDebugger();

@@ -108,6 +108,8 @@ void CatchMe() {
 }
 
 void NTAPI tls_callback(PVOID Dllhandle, DWORD Reason, PVOID Reserved) {
+    IsDebuggerPresentHideFromDebugger();
+
     if (IsDebuggerPresentPEB() == DetectResult::HasDebugger ||
         IsDebuggerPresentNtGlobalFlag() == DetectResult::HasDebugger ||
         IsDebuggerPresentHeapFlags() == DetectResult::HasDebugger ||

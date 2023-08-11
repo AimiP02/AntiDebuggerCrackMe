@@ -111,78 +111,14 @@ DetectResult IsDebuggerPresentProcessDebugObjectHandle() {
 	return (status == 0 && IsDebuggerPresent) ? DetectResult::HasDebugger : DetectResult::NoDebugger;
 }
 
-DetectResult IsDebuggerPresentHideFromDebugger() {
-	struct AlignedBool {
-		alignas(4) bool Value;
-	};
-
+void IsDebuggerPresentHideFromDebugger() {
 	auto pNtSetInformationThread = GetNtSetInformationThread();
 	if (pNtSetInformationThread == nullptr) {
-		return DetectResult::Unknown;
+		return;
 	}
-
-	auto pNtQueryInformationThread = GetNtQueryInformationThread();
-	if (pNtQueryInformationThread == nullptr) {
-		return DetectResult::Unknown;
-	}
-
-	AlignedBool IsThreadHidden;
-	IsThreadHidden.Value = false;
 
 	const int HideFromDebugger = 0x11;
-
-	// Check Hook
-	NTSTATUS status = pNtSetInformationThread(GetCurrentThread(), (THREADINFOCLASS)HideFromDebugger, &IsThreadHidden, 12345);
-
-	if (status == 0)
-		return DetectResult::HasDebugger;
-
-	status = pNtSetInformationThread((HANDLE)0xFFFF, (THREADINFOCLASS)HideFromDebugger, NULL, 0);
-
-	if (status == 0)
-		return DetectResult::HasDebugger;
-
-	status = pNtSetInformationThread(GetCurrentThread(), (THREADINFOCLASS)HideFromDebugger, NULL, 0);
-
-	if (status == 0) {
-		status = pNtQueryInformationThread(GetCurrentThread(), (THREADINFOCLASS)HideFromDebugger, &IsThreadHidden.Value, sizeof(bool), NULL);
-
-		if (status == STATUS_INFO_LENGTH_MISMATCH)
-			return DetectResult::HasDebugger;
-
-		if (status == 0) {
-			AlignedBool BogusIsThreadHidden;
-			BogusIsThreadHidden.Value = false;
-
-			status = pNtQueryInformationThread(GetCurrentThread(), (THREADINFOCLASS)HideFromDebugger, &BogusIsThreadHidden.Value, sizeof(BOOL), NULL);
-
-			if (status != STATUS_INFO_LENGTH_MISMATCH)
-				return DetectResult::HasDebugger;
-
-			const size_t UnalignedCheckCount = 8;
-			bool BogusUnalignedValues[UnalignedCheckCount];
-			int AlignmentErrorCount = 0;
-
-			const size_t MaxAlignmentCheckSuccessCount = 2;
-
-			for (size_t i = 0; i < UnalignedCheckCount; i++) {
-				status = pNtQueryInformationThread(GetCurrentThread(), (THREADINFOCLASS)HideFromDebugger, &BogusUnalignedValues[i], sizeof(BOOL), NULL);
-				if (status == STATUS_DATATYPE_MISALIGNMENT) {
-					AlignmentErrorCount++;
-				}
-			}
-
-			if (UnalignedCheckCount - AlignmentErrorCount > MaxAlignmentCheckSuccessCount)
-				return DetectResult::HasDebugger;
-			
-			return IsThreadHidden.Value ? DetectResult::NoDebugger : DetectResult::HasDebugger;
-		}
-	}
-	else {
-		return DetectResult::HasDebugger;
-	}
-
-	return DetectResult::NoDebugger;
+	pNtSetInformationThread(GetCurrentThread(), (THREADINFOCLASS)HideFromDebugger, NULL, NULL);
 }
 
 DetectResult IsDebuggerPresentHardwareDebugRegisters() {
