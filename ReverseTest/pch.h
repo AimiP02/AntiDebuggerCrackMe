@@ -31,7 +31,6 @@
 #include <algorithm>
 #include <cctype>
 #include <slpublic.h> // SLIsGenuineLocal
-#include <intrin.h>
 
 #pragma comment(lib, "wbemuuid.lib")
 #pragma comment(lib, "Shlwapi.lib")

@@ -70,6 +70,7 @@ DetectResult IsVMwarePresentProcess() {
 }
 
 DetectResult IsVMwarePresentCPUID() {
-	int CurRAX = GetCPUID();
-	return (static_cast<unsigned int>(CurRAX) == 0x80000000) ? DetectResult::HasVM : DetectResult::NoVM;
+	int Reg[4], FunctionId = 1;
+	__cpuid(Reg, FunctionId);
+	return (Reg[2] & 0x80000000) ? DetectResult::HasVM : DetectResult::NoVM;
 }
