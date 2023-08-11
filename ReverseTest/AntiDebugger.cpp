@@ -19,7 +19,7 @@ DetectResult IsDebuggerPresentNtGlobalFlag() {
 DetectResult IsDebuggerPresentHeapFlags() {
 	PPEB pPEB = GetPEB();
 
-	PVOID pHeap = *(PVOID*)((PBYTE)pPEB + 0x18);
+	PVOID pHeap = *(PVOID*)((PBYTE)pPEB + 0x30);
 	PDWORD pFlag = (PDWORD)((PBYTE)pHeap + 0x70);
 	PDWORD pForceFlag = (PDWORD)((PBYTE)pHeap + 0x74);
 	
