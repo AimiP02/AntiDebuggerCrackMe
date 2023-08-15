@@ -95,7 +95,7 @@ DetectResult IsDebuggerPresentProcessDebugFlags() {
 	DWORD IsDebuggerPresent = FALSE;
 	NTSTATUS status = pNtQueryInformationProcess(GetCurrentProcess(), (PROCESSINFOCLASS)ProcessDebugFlags, &IsDebuggerPresent, sizeof(DWORD) * 2, NULL);
 	
-	return (status == 0 && IsDebuggerPresent) ? DetectResult::HasDebugger : DetectResult::NoDebugger;
+	return (status == 0 && IsDebuggerPresent == 0) ? DetectResult::HasDebugger : DetectResult::NoDebugger;
 }
 
 DetectResult IsDebuggerPresentProcessDebugObjectHandle() {
